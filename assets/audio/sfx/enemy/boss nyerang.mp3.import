@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c0lft8au04lx6"
+path="res://.godot/imported/boss nyerang.mp3-8778c7ac2fdce77df85bddb7807fd45c.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/enemy/boss nyerang.mp3"
+dest_files=["res://.godot/imported/boss nyerang.mp3-8778c7ac2fdce77df85bddb7807fd45c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

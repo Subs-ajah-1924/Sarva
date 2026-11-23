@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://btlrnjrtioydq"
+path="res://.godot/imported/sword attack enemy.mp3-32339556f6f22624b27268f62d6f3e84.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/enemy/sword attack enemy.mp3"
+dest_files=["res://.godot/imported/sword attack enemy.mp3-32339556f6f22624b27268f62d6f3e84.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

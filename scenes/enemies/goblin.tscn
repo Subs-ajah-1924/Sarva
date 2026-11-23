@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dudp56ibsecim"]
+
+[ext_resource type="Script" uid="uid://btphi1o1oivbq" path="res://scripts/enemies/enemy.gd" id="1_script"]
+[ext_resource type="SpriteFrames" uid="uid://cgy7vbd4jcm8k" path="res://assets/sprites/enemies/goblin_frames.tres" id="2_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(14, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_attack"]
+size = Vector2(13, 13)
+
+[node name="Goblin" type="CharacterBody2D" unique_id=1141424848]
+collision_layer = 2
+script = ExtResource("1_script")
+move_speed = 80.0
+detection_range = 160.0
+attack_range = 34.0
+cooldown = 1.0
+windup = 0.2
+active_time = 0.15
+hurt_duration = 0.3
+knockback_speed = 140.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=423745948]
+position = Vector2(0, 2.3841858e-07)
+scale = Vector2(0.69666666, 0.69666666)
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -26)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1817965437]
+position = Vector2(1, -12)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=2097739947]
+position = Vector2(20, -18)
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=6904295]
+position = Vector2(-9.5, 5)
+shape = SubResource("RectangleShape2D_attack")

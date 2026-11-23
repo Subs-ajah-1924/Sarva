@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cqeqg0iey42iy"
+path="res://.godot/imported/attack combo keno musuh.mp3-0c3c00e2192be9b1e3383ebae78be095.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/sword/attack combo keno musuh.mp3"
+dest_files=["res://.godot/imported/attack combo keno musuh.mp3-0c3c00e2192be9b1e3383ebae78be095.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

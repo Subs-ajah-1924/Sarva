@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://b54pjlbir8cd3"]
+
+[ext_resource type="Script" uid="uid://btphi1o1oivbq" path="res://scripts/enemies/enemy.gd" id="1_script"]
+[ext_resource type="SpriteFrames" uid="uid://ddv5ca5iu6nfj" path="res://assets/sprites/enemies/skeleton_frames.tres" id="2_frames"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(18, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_attack"]
+size = Vector2(18, 16)
+
+[node name="Skeleton" type="CharacterBody2D" unique_id=18609981]
+collision_layer = 2
+script = ExtResource("1_script")
+move_speed = 55.0
+detection_range = 150.0
+attack_range = 38.0
+cooldown = 1.5
+windup = 0.35
+knockback_speed = 110.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1911474953]
+position = Vector2(-4.7683716e-07, -1.1920929e-07)
+scale = Vector2(0.7133333, 0.7133333)
+sprite_frames = ExtResource("2_frames")
+animation = &"idle"
+autoplay = "idle"
+offset = Vector2(0, -26)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2104668533]
+position = Vector2(3, -18)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=1493032430]
+position = Vector2(22, -20)
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=856092285]
+position = Vector2(-6, -3)
+shape = SubResource("RectangleShape2D_attack")

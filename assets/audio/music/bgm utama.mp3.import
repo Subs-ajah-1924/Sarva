@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ct2x0vnsxlsq2"
+path="res://.godot/imported/bgm utama.mp3-04da9212b42b02bda508780ee44712d0.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/bgm utama.mp3"
+dest_files=["res://.godot/imported/bgm utama.mp3-04da9212b42b02bda508780ee44712d0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

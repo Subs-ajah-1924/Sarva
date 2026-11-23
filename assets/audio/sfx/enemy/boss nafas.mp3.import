@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bxynvlwop0ye4"
+path="res://.godot/imported/boss nafas.mp3-07e64847988452e624978ab3d08c6d0f.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/sfx/enemy/boss nafas.mp3"
+dest_files=["res://.godot/imported/boss nafas.mp3-07e64847988452e624978ab3d08c6d0f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

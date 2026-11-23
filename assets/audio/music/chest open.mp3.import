@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dund8r0yjnr5o"
+path="res://.godot/imported/chest open.mp3-cecda20515684705656a036ac6b55e68.mp3str"
+
+[deps]
+
+source_file="res://assets/audio/music/chest open.mp3"
+dest_files=["res://.godot/imported/chest open.mp3-cecda20515684705656a036ac6b55e68.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
