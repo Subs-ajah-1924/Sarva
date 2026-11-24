@@ -116,16 +116,18 @@ func _run() -> void:
 	_check(goblin.global_position.x > goblin_x + 1.0, "goblin is knocked away by the player attack")
 
 	await _physics_frames(120)
-	_check(is_instance_valid(goblin) and goblin_sprite.animation != "death", "goblin survives the hit (no HP system)")
+	_check(is_instance_valid(goblin) and goblin.get("health") == 2, "goblin survives one hit with two HP remaining")
 
 	# --- goblin attacks the player ---
 	goblin.global_position = Vector2(420, 200)
 	player.global_position = Vector2(80, 200)
 	await _physics_frames(60)
 	await _wait_player_recovered(180)
+	var player_hp_before_goblin: int = player.get("health")
 	goblin.global_position = Vector2(108, 200)
 	await _physics_frames(10)
 	_check(await _wait_for_player_hurt(180), "goblin attacks and hurts the player")
+	_check(player.get("health") == player_hp_before_goblin - 1, "goblin attack removes exactly one player HP")
 
 	goblin.queue_free()
 	await physics_frame
@@ -156,7 +158,7 @@ func _run() -> void:
 	_check(skeleton.global_position.x > skeleton_x + 1.0, "skeleton is knocked away by the player attack")
 
 	await _physics_frames(120)
-	_check(is_instance_valid(skeleton) and skeleton_sprite.animation != "death", "skeleton survives the hit (no HP system)")
+	_check(is_instance_valid(skeleton) and skeleton.get("health") == 3, "skeleton survives one hit with three HP remaining")
 	printerr("DEBUG after survival p=%s v=%s s=%s" % [player.global_position, player.velocity, skeleton.global_position])
 
 	# --- skeleton attacks the player ---
@@ -171,6 +173,7 @@ func _run() -> void:
 	await _physics_frames(10)
 	var skeleton_attack_seen := false
 	var skeleton_hurt_player := false
+	var player_hp_before_skeleton: int = player.get("health")
 	for i in 180:
 		await physics_frame
 		if skeleton.attacking:
@@ -180,6 +183,7 @@ func _run() -> void:
 			break
 	_check(skeleton_attack_seen, "skeleton plays its attack animation")
 	_check(skeleton_hurt_player, "skeleton attacks and hurts the player")
+	_check(player.get("health") == player_hp_before_skeleton - 1, "skeleton attack removes exactly one player HP")
 
 	if failures == 0:
 		print("ALL TESTS PASSED")
