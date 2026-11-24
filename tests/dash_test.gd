@@ -95,6 +95,8 @@ func _run() -> void:
 	_check(player.dashing, "dash is available again after cooldown")
 
 	# Dash follows facing direction.
+	player.global_position = Vector2(250, 180)
+	await _physics_frames(70)
 	await _physics_frames(40)
 	Input.action_press("move_left")
 	await _physics_frames(10)
