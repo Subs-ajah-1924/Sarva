@@ -63,6 +63,43 @@
 [ext_resource type="Texture2D" uid="uid://cjuqjrr34is2b" path="res://assets/sprites/player/Spritesheets/Transitions/04.Slide end.png" id="61_btr0x"]
 [ext_resource type="Texture2D" uid="uid://cxf0qlnyec22t" path="res://assets/sprites/player/Spritesheets/Transitions/03.Slide start.png" id="62_xu1wa"]
 [ext_resource type="Texture2D" uid="uid://bc0h67umgixwr" path="res://assets/sprites/player/Spritesheets/Transitions/08.wall hold start.png" id="63_m3c6u"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/Spritesheets/17.Death.png" id="64_death"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_0"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_1"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 160, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_2"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 320, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_3"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 480, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_4"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 640, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_5"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 800, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_6"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 960, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_7"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 1120, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_8"]
+atlas = ExtResource("64_death")
+region = Rect2(0, 1280, 160, 160)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8j1nv"]
 atlas = ExtResource("44_gresb")
@@ -270,6 +307,38 @@ region = Rect2(0, 800, 160, 160)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_8")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_7st7n")

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 const SPEED := 180.0
 const ACCELERATION := 1400.0
@@ -11,11 +12,23 @@ const ATTACK_RECOVERY := 0.25
 const HURT_TIME := 0.35
 const DASH_SPEED := 420.0
 const DASH_TIME := 0.18
+const DASH_INVULNERABILITY_TIME := DASH_TIME
 const DASH_COOLDOWN := 0.6
 const COMBO_WINDOW := 0.35
 
+signal health_changed(current: int, maximum: int)
+signal died(player: Player)
+
+@export var max_health := 5
+@export var post_hit_invulnerability := 0.5
+
 var facing := 1
 var hurt_time := 0.0
+var health: int
+var is_invulnerable := false
+var invulnerability_time := 0.0
+var dead := false
+var spawn_position := Vector2.ZERO
 var attacking := false
 var attack_type := 1
 var attack_time := 0.0
@@ -42,9 +55,14 @@ var shake_amp := 0.0
 @onready var camera: Camera2D = $Camera2D
 @onready var hit_sfx: AudioStreamPlayer = $HitSfx
 @onready var miss_sfx: AudioStreamPlayer = $MissSfx
+@onready var health_bar: Node2D = $WorldHealthBar
 
 
 func _ready() -> void:
+	spawn_position = global_position
+	health = max_health
+	health_changed.connect(health_bar.set_health)
+	health_changed.emit(health, max_health)
 	sprite.animation_finished.connect(_on_animation_finished)
 	hit_sfx.stream = load("res://assets/audio/sfx/char/keno damage.mp3")
 	miss_sfx.stream = load("res://assets/audio/sfx/sword/basic attack rk keno.wav")
@@ -61,6 +79,17 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
+	if hurt_time > 0.0:
+		hurt_time = maxf(hurt_time - delta, 0.0)
+		if hurt_time <= 0.0:
+			_recovering = true
+	if invulnerability_time > 0.0:
+		invulnerability_time = maxf(invulnerability_time - delta, 0.0)
+		if invulnerability_time <= 0.0:
+			is_invulnerable = false
+
 	dash_cooldown = maxf(dash_cooldown - delta, 0.0)
 
 	if Input.is_action_just_pressed("dash") and dash_cooldown <= 0.0:
@@ -74,6 +103,8 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2(facing * DASH_SPEED, 0.0)
 		if dash_time <= 0.0:
 			dashing = false
+			if invulnerability_time <= 0.0:
+				is_invulnerable = false
 		move_and_slide()
 		_update_animation()
 		return
@@ -82,10 +113,6 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	if hurt_time > 0.0:
-		hurt_time -= delta
-		if hurt_time <= 0.0:
-			hurt_time = 0.0
-			_recovering = true
 		velocity.x = move_toward(velocity.x, 0.0, FRICTION * delta)
 		move_and_slide()
 		_update_animation()
@@ -145,6 +172,8 @@ func _start_dash() -> void:
 		facing = 1 if direction > 0.0 else -1
 	dashing = true
 	dash_time = DASH_TIME
+	invulnerability_time = DASH_INVULNERABILITY_TIME
+	is_invulnerable = true
 	dash_cooldown = DASH_COOLDOWN
 	attacking = false
 	_slide_ending = false
@@ -181,8 +210,8 @@ func _process_attack(delta: float) -> void:
 			if body in hit_targets or not body.has_method("take_hit"):
 				continue
 			hit_targets.append(body)
-			body.take_hit(facing)
-			_on_hit(body)
+			if body.take_hit(facing, 1):
+				_on_hit(body)
 
 	if attack_time >= ATTACK_WINDUP + ATTACK_ACTIVE + ATTACK_RECOVERY:
 		_attack_done = true
@@ -214,18 +243,88 @@ func _do_hitstop() -> void:
 	Engine.time_scale = 1.0
 
 
-func take_hit(direction: int) -> void:
-	if hurt_time > 0.0 or dashing:
-		return
+func take_hit(direction: int, damage: int = 1) -> bool:
+	if dead or is_invulnerable or dashing:
+		return false
+	health = maxi(health - maxi(damage, 0), 0)
+	health_changed.emit(health, max_health)
+	if health <= 0:
+		die()
+		return true
+	is_invulnerable = true
+	invulnerability_time = post_hit_invulnerability
 	hurt_time = HURT_TIME
 	attacking = false
 	_recovering = false
 	attack_area.monitoring = false
 	velocity = Vector2(direction * 150.0, -120.0)
 	sprite.play("hurt")
+	return true
+
+
+func die() -> void:
+	if dead:
+		return
+	dead = true
+	dashing = false
+	attacking = false
+	hurt_time = 0.0
+	_recovering = false
+	attack_time = 0.0
+	dash_time = 0.0
+	velocity = Vector2.ZERO
+	is_invulnerable = false
+	invulnerability_time = 0.0
+	attack_area.set_deferred("monitoring", false)
+	attack_area.set_deferred("monitorable", false)
+	set_deferred("collision_layer", 1)
+	set_deferred("collision_mask", 0)
+	for collision_shape in find_children("CollisionShape2D", "CollisionShape2D", true, false):
+		collision_shape.set_deferred("disabled", true)
+	died.emit(self)
+	sprite.play("death")
+
+
+func respawn(at: Vector2) -> void:
+	global_position = at
+	dead = false
+	health = max_health
+	health_changed.emit(health, max_health)
+	velocity = Vector2.ZERO
+	attacking = false
+	dashing = false
+	hurt_time = 0.0
+	attack_time = 0.0
+	dash_time = 0.0
+	dash_cooldown = 0.0
+	is_invulnerable = false
+	invulnerability_time = 0.0
+	facing = 1
+	hit_targets.clear()
+	_hit_this_attack = false
+	_hitstop_done = false
+	_attack_done = false
+	_was_in_air = false
+	_fall_speed = 0.0
+	_landing = false
+	_recovering = false
+	_apex_played = false
+	_air_frames = 0
+	_slide_ending = false
+	attack_area.set_deferred("monitoring", false)
+	attack_area.set_deferred("monitorable", false)
+	collision_layer = 1
+	collision_mask = 3
+	for collision_shape in find_children("CollisionShape2D", "CollisionShape2D", true, false):
+		collision_shape.set_deferred("disabled", false)
+	sprite.modulate = Color.WHITE
+	sprite.play("idle")
 
 
 func _on_animation_finished() -> void:
+	if dead and sprite.animation == "death":
+		respawn(spawn_position)
+		return
 	if sprite.animation == "knockback_recover":
 		_recovering = false
 		return
@@ -235,6 +334,8 @@ func _on_animation_finished() -> void:
 
 
 func _update_animation() -> void:
+	if dead:
+		return
 	sprite.flip_h = facing < 0
 	sprite.offset.x = SPRITE_OFFSET_X if facing > 0 else -SPRITE_OFFSET_X
 
