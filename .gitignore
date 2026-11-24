@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+/GAME_PLAN.md
 
 # OS files
 .DS_Store

@@ -28,8 +28,10 @@ position = Vector2(0, -40)
 zoom = Vector2(2, 2)
 
 [node name="HitSfx" type="AudioStreamPlayer" parent="." unique_id=1281057401]
+volume_db = -2.0
 
 [node name="MissSfx" type="AudioStreamPlayer" parent="." unique_id=1281057402]
+volume_db = -8.0
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=1587975070]
 position = Vector2(20, -18)

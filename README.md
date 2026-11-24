@@ -50,7 +50,7 @@ docs/                 desain & catatan
 
 `move_left`, `move_right`, `jump`, `attack`, `pause`.
 
-Kontrol keyboard: `A`/`←` kiri, `D`/`→` kanan, `Space`/`W` lompat, `J` serang, `Shift`/`K` dash.
+Kontrol keyboard: `A`/`←` kiri, `D`/`→` kanan, `Space`/`W` lompat, `X` serang, `Shift`/`K` dash.
 
 ## Movement
 
