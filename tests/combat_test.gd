@@ -83,12 +83,13 @@ func _run() -> void:
 	_check(slime.global_position.x > slime_hit_x + 1.0, "slime is knocked away by the player attack")
 
 	await _physics_frames(120)
-	_check(is_instance_valid(slime) and slime_sprite.animation != "death", "slime survives the hit (no HP system)")
+	_check(is_instance_valid(slime) and slime.get("health") == 1, "slime survives one hit with one HP remaining")
 
 	# --- slime attack ---
 	player.global_position = Vector2(80, 200)
 	slime.global_position = Vector2(108, 200)
 	await _physics_frames(10)
+	var player_hp_before_slime: int = player.get("health")
 
 	var player_hurt := false
 	var slime_attacked := false
@@ -102,6 +103,7 @@ func _run() -> void:
 
 	_check(slime_attacked, "slime plays its attack animation")
 	_check(player_hurt, "slime attack puts the player in hurt state")
+	_check(player.get("health") == player_hp_before_slime - 1, "slime attack removes exactly one player HP")
 
 	var knocked_x := player.global_position.x
 	await _physics_frames(10)

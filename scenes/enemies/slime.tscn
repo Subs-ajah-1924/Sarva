@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://btphi1o1oivbq" path="res://scripts/enemies/enemy.gd" id="1_script"]
 [ext_resource type="SpriteFrames" path="res://assets/sprites/enemies/slime_frames.tres" id="2_frames"]
+[ext_resource type="PackedScene" path="res://scenes/ui/world_health_bar.tscn" id="3_health_bar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(18, 12)
@@ -12,6 +13,8 @@ size = Vector2(16, 12)
 [node name="Slime" type="CharacterBody2D" unique_id=1837117691]
 collision_layer = 2
 script = ExtResource("1_script")
+max_health = 2
+attack_damage = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=78833137]
 sprite_frames = ExtResource("2_frames")
@@ -32,3 +35,6 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=985752036]
 position = Vector2(-5, 2)
 shape = SubResource("RectangleShape2D_attack")
+
+[node name="WorldHealthBar" parent="." instance=ExtResource("3_health_bar")]
+position = Vector2(0, -48)

@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://coy0m3h8q1sl2" path="res://scenes/enemies/slime.tscn" id="3_slime"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/goblin.tscn" id="4_goblin"]
 [ext_resource type="PackedScene" path="res://scenes/enemies/skeleton.tscn" id="5_skeleton"]
+[ext_resource type="Script" path="res://scripts/systems/kill_zone.gd" id="6_kill_zone"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6iamk"]
 texture = ExtResource("1_ksju7")
@@ -1816,6 +1817,9 @@ size = Vector2(304, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ihdgj"]
 size = Vector2(304, 32)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kill_zone"]
+size = Vector2(2200, 96)
+
 [node name="Level1" type="Node2D" unique_id=1515275263]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1705879996]
@@ -1856,3 +1860,12 @@ position = Vector2(727, 240)
 
 [node name="Skeleton" parent="." unique_id=859324224 instance=ExtResource("5_skeleton")]
 position = Vector2(1359, 320)
+
+[node name="KillZone" type="Area2D" parent="."]
+position = Vector2(960, 440)
+collision_layer = 0
+collision_mask = 1
+script = ExtResource("6_kill_zone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+shape = SubResource("RectangleShape2D_kill_zone")

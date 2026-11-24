@@ -31,9 +31,54 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/walk/walk_03.png" id="29_13h34"]
 [ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/walk/walk_04.png" id="30_8ka6u"]
 [ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/walk/walk_05.png" id="31_eew6m"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_00.png" id="32_death00"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_01.png" id="33_death01"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_02.png" id="34_death02"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_03.png" id="35_death03"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_04.png" id="36_death04"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_05.png" id="37_death05"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_06.png" id="38_death06"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_07.png" id="39_death07"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_08.png" id="40_death08"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Slime_Enemy_Pixel_Monsters_Vol_1/Slime/frames/green/death/death_09.png" id="41_death09"]
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_death00")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_death01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_death02")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_death03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_death04")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_death05")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_death06")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_death07")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_death08")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_death09")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_baoba")
