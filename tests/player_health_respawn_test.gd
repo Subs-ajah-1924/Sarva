@@ -33,18 +33,32 @@ func _run() -> void:
 	var sprite := player.get_node("AnimatedSprite2D") as AnimatedSprite2D
 	var attack_area := player.get_node("AttackHitbox") as Area2D
 	var spawn: Vector2 = player.global_position
-	_check(player.get("max_health") == 5, "player has five max HP")
-	_check(player.get("health") == 5, "player starts at full HP")
+	_check(player.get("max_health") == 10, "player has ten max HP")
+	_check(player.get("health") == 10, "player starts at full HP")
 	_check(player.get("spawn_position") == spawn, "spawn position captures level instance placement")
-	_check(player.get_node_or_null("WorldHealthBar") != null, "player has reusable health bar child")
+	_check(player.get_node_or_null("WorldHealthBar") == null, "player has no world health bar")
+	var healing_sprite := player.get_node_or_null("HealingSprite") as AnimatedSprite2D
+	_check(healing_sprite != null and healing_sprite.sprite_frames.has_animation("healing"), "player has healing overlay animation")
+	if healing_sprite != null and healing_sprite.sprite_frames.has_animation("healing"):
+		_check(healing_sprite.sprite_frames.get_frame_count("healing") == 7, "healing animation has seven frames")
+		_check(is_equal_approx(healing_sprite.sprite_frames.get_animation_speed("healing"), 12.0), "healing animation runs at twelve FPS")
+		_check(not healing_sprite.sprite_frames.get_animation_loop("healing"), "healing animation does not loop")
+	_check(player.heal(4) == 0, "healing at full HP restores nothing")
+	player.take_hit(1, 3)
+	_check(player.heal(2) == 2 and player.get("health") == 9, "healing restores requested missing HP")
+	_check(player.heal(4) == 1 and player.get("health") == 10, "healing clamps at max HP and returns actual amount")
+	player.set("is_invulnerable", false)
+	player.set("invulnerability_time", 0.0)
+	player.set("hurt_time", 0.0)
+	player.set("_recovering", false)
 	_check(sprite.sprite_frames.has_animation("death"), "player has death animation frames")
 
 	# Enemy hit and post-hit invulnerability are separate from hurt stun.
 	var hit_accepted: bool = player.take_hit(1, 1)
-	_check(hit_accepted and player.get("health") == 4, "enemy hit removes one HP")
+	_check(hit_accepted and player.get("health") == 9, "enemy hit removes one HP")
 	_check(player.get("is_invulnerable"), "player gains post-hit invulnerability")
 	_check(not player.take_hit(1, 1), "repeated hit during post-hit i-frames is rejected")
-	_check(player.get("health") == 4, "rejected hit preserves HP")
+	_check(player.get("health") == 9, "rejected hit preserves HP")
 	_check(is_equal_approx(player.get("hurt_time"), 0.35), "hurt stun remains distinct from invulnerability")
 	await _physics_frames(50)
 	_check(not player.get("is_invulnerable"), "post-hit invulnerability ends after 0.5 seconds")
@@ -58,7 +72,7 @@ func _run() -> void:
 	_check(player.get("dashing"), "dash starts")
 	_check(player.get("is_invulnerable"), "dash grants i-frames")
 	_check(not player.take_hit(1, 1), "damage during dash i-frames is rejected")
-	_check(player.get("health") == 4, "dash i-frames preserve HP")
+	_check(player.get("health") == 9, "dash i-frames preserve HP")
 	await _physics_frames(12)
 	_check(not player.get("dashing"), "dash ends after 0.18 seconds")
 	_check(not player.get("is_invulnerable"), "dash i-frames end with dash")
@@ -95,7 +109,7 @@ func _run() -> void:
 	player.respawn(spawn)
 	_check(not player.get("dead"), "respawn clears dead state")
 	_check(player.global_position == spawn, "respawn returns to saved start")
-	_check(player.get("health") == 5, "respawn restores full HP")
+	_check(player.get("health") == 10, "respawn restores full HP")
 	_check(player.velocity == Vector2.ZERO, "respawn clears velocity")
 	_check(not player.get("attacking") and not player.get("dashing"), "respawn clears attack and dash")
 	_check(is_zero_approx(player.get("hurt_time")), "respawn clears hurt stun")
@@ -112,7 +126,7 @@ func _run() -> void:
 		if not player.get("dead"):
 			break
 	_check(not player.get("dead"), "player automatically respawns after death animation")
-	_check(player.get("spawn_position") == spawn and player.get("health") == 5, "automatic respawn restores saved start and full HP")
+	_check(player.get("spawn_position") == spawn and player.get("health") == 10, "automatic respawn restores saved start and full HP")
 
 	if failures == 0:
 		print("ALL TESTS PASSED")

@@ -7,6 +7,7 @@ extends SceneTree
 const FRAMES_PATH := "res://assets/sprites/player/player_frames.tres"
 const BASE := "res://assets/sprites/player/Separated Images/"
 const SHEET_BASE := "res://assets/sprites/player/Spritesheets/Transitions/"
+const HEALING_SHEET := "res://assets/sprites/player/Spritesheets/18.Healing effect.png"
 const FRAME_SIZE := 160
 
 const ANIMATIONS := {
@@ -27,7 +28,9 @@ const ANIMATIONS := {
 	"attack": {"dir": "09.Attack 1", "fps": 18.0, "loop": false},
 	"attack2": {"dir": "10.Attack 2", "fps": 18.0, "loop": false},
 	"hurt": {"dir": "16.Knockback", "fps": 12.0, "loop": false},
+	"death": {"sheet": "death", "frames": 10, "fps": 12.0, "loop": false},
 	"dash": {"dir": "06.Slide", "fps": 16.0, "loop": false},
+	"healing": {"sheet": "healing", "frames": 7, "fps": 12.0, "loop": false},
 }
 
 
@@ -44,7 +47,7 @@ func _init() -> void:
 			for frame_path in _frame_paths(BASE + config["dir"]):
 				frames.add_frame(animation, load(frame_path))
 		else:
-			var texture: Texture2D = load(SHEET_BASE + config["sheet"])
+			var texture: Texture2D = load(HEALING_SHEET if config["sheet"] == "healing" else "res://assets/sprites/player/Spritesheets/17.Death.png" if config["sheet"] == "death" else SHEET_BASE + config["sheet"])
 			for i in int(config["frames"]):
 				var atlas := AtlasTexture.new()
 				atlas.atlas = texture

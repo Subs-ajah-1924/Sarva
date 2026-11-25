@@ -2,8 +2,6 @@
 
 [ext_resource type="Script" uid="uid://q0qglndisebr" path="res://scripts/player/player.gd" id="1_script"]
 [ext_resource type="SpriteFrames" uid="uid://dt1o5dnnhw4ra" path="res://assets/sprites/player/player_frames.tres" id="2_frames"]
-[ext_resource type="PackedScene" path="res://scenes/ui/world_health_bar.tscn" id="3_health_bar"]
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(14, 33)
 
@@ -19,6 +17,13 @@ sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
 offset = Vector2(8, -16)
+
+[node name="HealingSprite" type="AnimatedSprite2D" parent="."]
+visible = false
+z_index = 1
+position = Vector2(8, -16)
+sprite_frames = ExtResource("2_frames")
+animation = &"healing"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=930809284]
 position = Vector2(8, -16.5)
@@ -44,6 +49,3 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1968611847]
 position = Vector2(3, 2)
 shape = SubResource("RectangleShape2D_attack")
-
-[node name="WorldHealthBar" parent="." instance=ExtResource("3_health_bar")]
-position = Vector2(8, -60)

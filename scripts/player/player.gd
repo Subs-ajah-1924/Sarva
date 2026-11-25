@@ -19,7 +19,7 @@ const COMBO_WINDOW := 0.35
 signal health_changed(current: int, maximum: int)
 signal died(player: Player)
 
-@export var max_health := 5
+@export var max_health := 10
 @export var post_hit_invulnerability := 0.5
 
 var facing := 1
@@ -55,17 +55,17 @@ var shake_amp := 0.0
 @onready var camera: Camera2D = $Camera2D
 @onready var hit_sfx: AudioStreamPlayer = $HitSfx
 @onready var miss_sfx: AudioStreamPlayer = $MissSfx
-@onready var health_bar: Node2D = $WorldHealthBar
+@onready var healing_sprite: AnimatedSprite2D = $HealingSprite
 
 
 func _ready() -> void:
 	spawn_position = global_position
 	health = max_health
-	health_changed.connect(health_bar.set_health)
 	health_changed.emit(health, max_health)
 	sprite.animation_finished.connect(_on_animation_finished)
 	hit_sfx.stream = load("res://assets/audio/sfx/char/keno damage.mp3")
 	miss_sfx.stream = load("res://assets/audio/sfx/sword/basic attack rk keno.wav")
+	healing_sprite.hide()
 
 
 func _process(delta: float) -> void:
@@ -260,6 +260,14 @@ func take_hit(direction: int, damage: int = 1) -> bool:
 	velocity = Vector2(direction * 150.0, -120.0)
 	sprite.play("hurt")
 	return true
+
+func heal(amount: int) -> int:
+	var restored := mini(maxi(amount, 0), max_health - health)
+	if restored <= 0:
+		return 0
+	health += restored
+	health_changed.emit(health, max_health)
+	return restored
 
 
 func die() -> void:
