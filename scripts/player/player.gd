@@ -17,14 +17,17 @@ const DASH_COOLDOWN := 0.6
 const COMBO_WINDOW := 0.35
 
 signal health_changed(current: int, maximum: int)
+signal energy_changed(current: int, maximum: int)
 signal died(player: Player)
 
 @export var max_health := 10
+@export var max_energy := 5
 @export var post_hit_invulnerability := 0.5
 
 var facing := 1
 var hurt_time := 0.0
 var health: int
+var energy: int
 var is_invulnerable := false
 var invulnerability_time := 0.0
 var dead := false
@@ -61,7 +64,9 @@ var shake_amp := 0.0
 func _ready() -> void:
 	spawn_position = global_position
 	health = max_health
+	energy = 0
 	health_changed.emit(health, max_health)
+	energy_changed.emit(energy, max_energy)
 	sprite.animation_finished.connect(_on_animation_finished)
 	hit_sfx.stream = load("res://assets/audio/sfx/char/keno damage.mp3")
 	miss_sfx.stream = load("res://assets/audio/sfx/sword/basic attack rk keno.wav")
@@ -270,6 +275,19 @@ func heal(amount: int) -> int:
 	return restored
 
 
+func add_energy(amount: int = 1) -> void:
+	if dead:
+		return
+	var before := energy
+	energy = mini(energy + maxi(amount, 0), max_energy)
+	if energy != before:
+		energy_changed.emit(energy, max_energy)
+
+
+func award_energy_from_enemy(_enemy: Node = null) -> void:
+	add_energy(1)
+
+
 func die() -> void:
 	if dead:
 		return
@@ -283,6 +301,8 @@ func die() -> void:
 	velocity = Vector2.ZERO
 	is_invulnerable = false
 	invulnerability_time = 0.0
+	energy = 0
+	energy_changed.emit(energy, max_energy)
 	attack_area.set_deferred("monitoring", false)
 	attack_area.set_deferred("monitorable", false)
 	set_deferred("collision_layer", 1)
@@ -297,7 +317,9 @@ func respawn(at: Vector2) -> void:
 	global_position = at
 	dead = false
 	health = max_health
+	energy = 0
 	health_changed.emit(health, max_health)
+	energy_changed.emit(energy, max_energy)
 	velocity = Vector2.ZERO
 	attacking = false
 	dashing = false

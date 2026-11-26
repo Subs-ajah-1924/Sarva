@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dr3rmy1psfuhe"]
+
+[ext_resource type="Script" uid="uid://pc2gqwsrl1c4" path="res://scripts/ui/player_hud.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://dbc5vlxgxm5i4" path="res://assets/sprites/ui/healthbar_frame.png" id="4_tfw32"]
+[ext_resource type="Texture2D" uid="uid://du75rwpwp7kjm" path="res://assets/sprites/ui/healthbar_track.png" id="4_track"]
+[ext_resource type="Texture2D" uid="uid://bt5i3dux43yxq" path="res://assets/sprites/ui/healthbar_fill.png" id="5_fill"]
+[ext_resource type="Texture2D" uid="uid://mnsn8xheg2xj" path="res://assets/sprites/ui/hands_frame.png" id="6_tfw32"]
+[ext_resource type="Texture2D" uid="uid://d0rukuo2fewwp" path="res://assets/sprites/ui/hands_fill.png" id="7_energy_fill"]
+
+[node name="Health and Energy Bar" type="Control" unique_id=1341036832]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 3.0
+offset_right = 149.0
+offset_bottom = 65.0
+mouse_filter = 2
+script = ExtResource("1")
+
+[node name="HealthbarTrack" type="Sprite2D" parent="." unique_id=1076332398]
+position = Vector2(69, 20)
+scale = Vector2(0.952381, 1.2142857)
+texture = ExtResource("4_track")
+
+[node name="HealthbarFill" type="Sprite2D" parent="HealthbarTrack" unique_id=701089400]
+position = Vector2(-0.52500916, 0.8235302)
+scale = Vector2(1.0624999, 1.2352941)
+texture = ExtResource("5_fill")
+
+[node name="HealthbarFrame" type="Sprite2D" parent="HealthbarTrack" unique_id=744722584]
+position = Vector2(-12.600002, 8.64706)
+scale = Vector2(1.05, 0.82352936)
+texture = ExtResource("4_tfw32")
+
+[node name="HandsFill" type="Sprite2D" parent="." unique_id=1148255383]
+position = Vector2(117.99999, 22.106018)
+scale = Vector2(0.4999999, 0.50165653)
+texture = ExtResource("7_energy_fill")
+
+[node name="HandsFrame" type="Sprite2D" parent="HandsFill" unique_id=2062142896]
+position = Vector2(22.761917, 6.615631)
+scale = Vector2(0.91369134, 0.8157622)
+texture = ExtResource("6_tfw32")
