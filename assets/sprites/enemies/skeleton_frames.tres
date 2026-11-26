@@ -4,23 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dumrnucarp4ov" path="res://assets/sprites/enemies/Skeleton/Take Hit.png" id="2_yc835"]
 [ext_resource type="Texture2D" uid="uid://cwi0514066bmc" path="res://assets/sprites/enemies/Skeleton/Idle.png" id="3_7sy53"]
 [ext_resource type="Texture2D" uid="uid://hvc627spt4u8" path="res://assets/sprites/enemies/Skeleton/Walk.png" id="4_mcxv7"]
-[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Skeleton/Death.png" id="5_death"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_death_0"]
-atlas = ExtResource("5_death")
-region = Rect2(0, 0, 150, 150)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_death_1"]
-atlas = ExtResource("5_death")
-region = Rect2(150, 0, 150, 150)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_death_2"]
-atlas = ExtResource("5_death")
-region = Rect2(300, 0, 150, 150)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_death_3"]
-atlas = ExtResource("5_death")
-region = Rect2(450, 0, 150, 150)
+[ext_resource type="Texture2D" uid="uid://ixsfo30xw7sx" path="res://assets/sprites/enemies/Skeleton/Death.png" id="5_death"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8g13f"]
 atlas = ExtResource("1_5drbi")
@@ -53,6 +37,22 @@ region = Rect2(900, 0, 150, 150)
 [sub_resource type="AtlasTexture" id="AtlasTexture_wxa2k"]
 atlas = ExtResource("1_5drbi")
 region = Rect2(1050, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_0"]
+atlas = ExtResource("5_death")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_1"]
+atlas = ExtResource("5_death")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_2"]
+atlas = ExtResource("5_death")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_3"]
+atlas = ExtResource("5_death")
+region = Rect2(450, 0, 150, 150)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kcr3a"]
 atlas = ExtResource("2_yc835")
@@ -106,23 +106,6 @@ region = Rect2(450, 0, 150, 150)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_death_0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_death_1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_death_2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_death_3")
-}],
-"loop": 0,
-"name": &"death",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_8g13f")
 }, {
 "duration": 1.0,
@@ -149,6 +132,23 @@ animations = [{
 "loop": 0,
 "name": &"attack",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_3")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
