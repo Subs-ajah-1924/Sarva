@@ -19,7 +19,7 @@ animation = &"idle"
 autoplay = "idle"
 offset = Vector2(8, -16)
 
-[node name="HealingSprite" type="AnimatedSprite2D" parent="."]
+[node name="HealingSprite" type="AnimatedSprite2D" parent="." unique_id=660966436]
 visible = false
 z_index = 1
 position = Vector2(8, -16)
@@ -48,5 +48,5 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=1968611847]
-position = Vector2(3, 2)
+position = Vector2(3, 0)
 shape = SubResource("RectangleShape2D_attack")

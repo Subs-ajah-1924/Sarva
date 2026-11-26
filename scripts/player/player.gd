@@ -4,7 +4,7 @@ class_name Player
 const SPEED := 180.0
 const ACCELERATION := 1400.0
 const FRICTION := 1500.0
-const JUMP_VELOCITY := -300.0
+const JUMP_VELOCITY := -400.0
 const SPRITE_OFFSET_X := 8.0
 const ATTACK_WINDUP := 0.07
 const ATTACK_ACTIVE := 0.10
