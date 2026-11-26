@@ -27,12 +27,18 @@
 [ext_resource type="Texture2D" uid="uid://cjii1sdhcbj6c" path="res://assets/sprites/player/Separated Images/05.Fall/F46.png" id="25_dsgg4"]
 [ext_resource type="Texture2D" uid="uid://cslrswhbl3f3o" path="res://assets/sprites/player/Separated Images/05.Fall/F47.png" id="26_wp1ub"]
 [ext_resource type="Texture2D" uid="uid://chuwypxiujuy" path="res://assets/sprites/player/Separated Images/05.Fall/F48.png" id="27_2aa4h"]
-[ext_resource type="Texture2D" uid="uid://dkdj0rfhxk0sg" path="res://assets/sprites/player/Spritesheets/18.Healing effect.png" id="28_n16bb"]
+[ext_resource type="Texture2D" uid="uid://bjh7rdog8qvys" path="res://assets/sprites/player/Separated Images/18.Healing effect/F39.png" id="28_7ic63"]
 [ext_resource type="Texture2D" uid="uid://d2cig4clwr3mf" path="res://assets/sprites/player/Separated Images/16.Knockback/F135.png" id="29_glxgq"]
+[ext_resource type="Texture2D" uid="uid://imo4iq8depy7" path="res://assets/sprites/player/Separated Images/18.Healing effect/F40.png" id="29_njma2"]
+[ext_resource type="Texture2D" uid="uid://dy74x3863a1jw" path="res://assets/sprites/player/Separated Images/18.Healing effect/F41.png" id="30_e7k76"]
 [ext_resource type="Texture2D" uid="uid://k82ua50wctr" path="res://assets/sprites/player/Separated Images/16.Knockback/F136.png" id="30_gault"]
 [ext_resource type="Texture2D" uid="uid://lrjambntsf1" path="res://assets/sprites/player/Separated Images/16.Knockback/F137.png" id="31_7sdfj"]
+[ext_resource type="Texture2D" uid="uid://c4qihss7hiry2" path="res://assets/sprites/player/Separated Images/18.Healing effect/F42.png" id="31_otmug"]
 [ext_resource type="Texture2D" uid="uid://bav8ae55rahlh" path="res://assets/sprites/player/Separated Images/16.Knockback/F138.png" id="32_3htlb"]
+[ext_resource type="Texture2D" uid="uid://c4d12fry6i25n" path="res://assets/sprites/player/Separated Images/18.Healing effect/F43.png" id="32_aoy66"]
 [ext_resource type="Texture2D" uid="uid://cpgv7bky0jcky" path="res://assets/sprites/player/Separated Images/16.Knockback/F139.png" id="33_8a6kc"]
+[ext_resource type="Texture2D" uid="uid://cklwu7xfq2egs" path="res://assets/sprites/player/Separated Images/18.Healing effect/F44.png" id="33_nylwu"]
+[ext_resource type="Texture2D" uid="uid://djncle5h1k80n" path="res://assets/sprites/player/Separated Images/18.Healing effect/F45.png" id="34_dio8i"]
 [ext_resource type="Texture2D" uid="uid://dojvc5eos0pgt" path="res://assets/sprites/player/Separated Images/01.Idle/F0.png" id="34_kiiyv"]
 [ext_resource type="Texture2D" uid="uid://dn6nti1aj7sp4" path="res://assets/sprites/player/Separated Images/01.Idle/F1.png" id="35_2h6lo"]
 [ext_resource type="Texture2D" uid="uid://w5cypqcs2bkq" path="res://assets/sprites/player/Separated Images/01.Idle/F2.png" id="36_faib2"]
@@ -105,34 +111,6 @@ region = Rect2(0, 1280, 160, 160)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4q784"]
 atlas = ExtResource("22_jyao7")
 region = Rect2(0, 1440, 160, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_srbw2"]
-atlas = ExtResource("28_n16bb")
-region = Rect2(0, 0, 160, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sn4hs"]
-atlas = ExtResource("28_n16bb")
-region = Rect2(0, 160, 160, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pb7m2"]
-atlas = ExtResource("28_n16bb")
-region = Rect2(0, 320, 160, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lnwlw"]
-atlas = ExtResource("28_n16bb")
-region = Rect2(0, 480, 160, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cvbjr"]
-atlas = ExtResource("28_n16bb")
-region = Rect2(0, 640, 160, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r3wgv"]
-atlas = ExtResource("28_n16bb")
-region = Rect2(0, 800, 160, 160)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l0ida"]
-atlas = ExtResource("28_n16bb")
-region = Rect2(0, 960, 160, 160)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v5wtg"]
 atlas = ExtResource("46_afvbo")
@@ -475,25 +453,25 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_srbw2")
+"texture": ExtResource("28_7ic63")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sn4hs")
+"texture": ExtResource("29_njma2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pb7m2")
+"texture": ExtResource("30_e7k76")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lnwlw")
+"texture": ExtResource("31_otmug")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cvbjr")
+"texture": ExtResource("32_aoy66")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r3wgv")
+"texture": ExtResource("33_nylwu")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l0ida")
+"texture": ExtResource("34_dio8i")
 }],
 "loop": 0,
 "name": &"healing",

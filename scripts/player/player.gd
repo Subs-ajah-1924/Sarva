@@ -58,7 +58,7 @@ var shake_amp := 0.0
 @onready var camera: Camera2D = $Camera2D
 @onready var hit_sfx: AudioStreamPlayer = $HitSfx
 @onready var miss_sfx: AudioStreamPlayer = $MissSfx
-@onready var healing_sprite: AnimatedSprite2D = $HealingSprite
+@onready var healing_sprite: AnimatedSprite2D = get_node_or_null("HealingSprite")
 
 
 func _ready() -> void:
@@ -70,7 +70,9 @@ func _ready() -> void:
 	sprite.animation_finished.connect(_on_animation_finished)
 	hit_sfx.stream = load("res://assets/audio/sfx/char/keno damage.mp3")
 	miss_sfx.stream = load("res://assets/audio/sfx/sword/basic attack rk keno.wav")
-	healing_sprite.hide()
+	if healing_sprite:
+		healing_sprite.hide()
+		healing_sprite.animation_finished.connect(_on_healing_animation_finished)
 
 
 func _process(delta: float) -> void:
@@ -86,6 +88,8 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
+	if Input.is_action_just_pressed("heal"):
+		_try_heal()
 	if hurt_time > 0.0:
 		hurt_time = maxf(hurt_time - delta, 0.0)
 		if hurt_time <= 0.0:
@@ -272,7 +276,24 @@ func heal(amount: int) -> int:
 		return 0
 	health += restored
 	health_changed.emit(health, max_health)
+	if healing_sprite and healing_sprite.sprite_frames.has_animation("healing"):
+		healing_sprite.play("healing")
+		healing_sprite.show()
 	return restored
+
+
+func _try_heal() -> void:
+	if energy <= 0 or health >= max_health:
+		return
+	if heal(1) != 1:
+		return
+	energy -= 1
+	energy_changed.emit(energy, max_energy)
+
+
+func _on_healing_animation_finished() -> void:
+	if healing_sprite and healing_sprite.animation == "healing":
+		healing_sprite.hide()
 
 
 func add_energy(amount: int = 1) -> void:
