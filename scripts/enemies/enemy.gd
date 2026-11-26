@@ -1,6 +1,10 @@
 extends CharacterBody2D
+class_name Enemy
 
 # Shared melee enemy behavior. Tune per enemy through exported values.
+
+signal health_changed(current: int, maximum: int)
+signal died(enemy: Enemy)
 
 @export var move_speed := 45.0
 @export var detection_range := 140.0
@@ -10,10 +14,15 @@ extends CharacterBody2D
 @export var active_time := 0.2
 @export var hurt_duration := 0.35
 @export var knockback_speed := 130.0
+@export var max_health := 2
+@export var attack_damage := 1
+@export var invulnerability_duration := 0.5
 
 var player: Node2D
+var health: int
 var facing := -1
 var attacking := false
+var dead := false
 var attack_time := 0.0
 var attack_cooldown := 0.0
 var hurt_time := 0.0
@@ -22,14 +31,21 @@ var hit_done := false
 
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area: Area2D = $AttackHitbox
+@onready var health_bar: Node2D = $WorldHealthBar
 
 
 func _ready() -> void:
+	health = max_health
+	health_changed.connect(health_bar.set_health)
+	health_changed.emit(health, max_health)
 	player = get_tree().get_first_node_in_group("player")
 	sprite.animation_finished.connect(_on_animation_finished)
 
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
@@ -86,15 +102,21 @@ func _update_attack(delta: float) -> void:
 	if in_window and not hit_done:
 		for body in attack_area.get_overlapping_bodies():
 			if body.has_method("take_hit"):
-				body.take_hit(facing)
-				hit_done = true
-				break
+				if body.take_hit(facing, attack_damage):
+					hit_done = true
+					break
 
 
-func take_hit(direction: int) -> void:
-	if invulnerable > 0.0 or hurt_time > 0.0:
-		return
-	invulnerable = 0.5
+func take_hit(direction: int, damage: int = 1) -> bool:
+	if dead or invulnerable > 0.0 or hurt_time > 0.0:
+		return false
+	health = maxi(health - maxi(damage, 0), 0)
+	health_changed.emit(health, max_health)
+	if health <= 0:
+		_die()
+		return true
+
+	invulnerable = invulnerability_duration
 	hurt_time = hurt_duration
 	attacking = false
 	hit_done = false
@@ -104,15 +126,40 @@ func take_hit(direction: int) -> void:
 	sprite.modulate = Color(2.0, 2.0, 2.0)
 	var flash_timer := get_tree().create_timer(0.08, true, false, true)
 	flash_timer.timeout.connect(func(): sprite.modulate = Color(1.0, 1.0, 1.0))
+	return true
+
+
+func _die() -> void:
+	if dead:
+		return
+	dead = true
+	attacking = false
+	hit_done = false
+	velocity = Vector2.ZERO
+	attack_area.monitoring = false
+	attack_area.monitorable = false
+	attack_area.collision_layer = 0
+	attack_area.collision_mask = 0
+	collision_layer = 0
+	collision_mask = 0
+	for collision_shape in find_children("CollisionShape2D", "CollisionShape2D", true, false):
+		collision_shape.set_deferred("disabled", true)
+	died.emit(self)
+	sprite.play("death")
 
 
 func _on_animation_finished() -> void:
+	if dead and sprite.animation == "death":
+		queue_free()
+		return
 	if sprite.animation == "attack":
 		attacking = false
 		attack_area.monitoring = false
 
 
 func _update_animation() -> void:
+	if dead:
+		return
 	sprite.flip_h = facing < 0
 
 	if hurt_time > 0.0:

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://btphi1o1oivbq" path="res://scripts/enemies/enemy.gd" id="1_script"]
 [ext_resource type="SpriteFrames" uid="uid://cgy7vbd4jcm8k" path="res://assets/sprites/enemies/goblin_frames.tres" id="2_frames"]
+[ext_resource type="PackedScene" path="res://scenes/ui/world_health_bar.tscn" id="3_health_bar"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(14, 24)
@@ -20,6 +21,8 @@ windup = 0.2
 active_time = 0.15
 hurt_duration = 0.3
 knockback_speed = 140.0
+max_health = 3
+attack_damage = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=423745948]
 position = Vector2(0, 2.3841858e-07)
@@ -42,3 +45,6 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=6904295]
 position = Vector2(-9.5, 5)
 shape = SubResource("RectangleShape2D_attack")
+
+[node name="WorldHealthBar" parent="." instance=ExtResource("3_health_bar")]
+position = Vector2(0, -82)

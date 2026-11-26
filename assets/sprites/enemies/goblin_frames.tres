@@ -4,6 +4,23 @@
 [ext_resource type="Texture2D" uid="uid://bii2qjkgld6su" path="res://assets/sprites/enemies/Goblin/Take Hit.png" id="2_1xvwf"]
 [ext_resource type="Texture2D" uid="uid://b280jjvqxrij2" path="res://assets/sprites/enemies/Goblin/Idle.png" id="3_crmj8"]
 [ext_resource type="Texture2D" uid="uid://dbqlhjwryvul4" path="res://assets/sprites/enemies/Goblin/Run.png" id="4_wav3y"]
+[ext_resource type="Texture2D" path="res://assets/sprites/enemies/Goblin/Death.png" id="5_death"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_0"]
+atlas = ExtResource("5_death")
+region = Rect2(0, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_1"]
+atlas = ExtResource("5_death")
+region = Rect2(150, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_2"]
+atlas = ExtResource("5_death")
+region = Rect2(300, 0, 150, 150)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_death_3"]
+atlas = ExtResource("5_death")
+region = Rect2(450, 0, 150, 150)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a7lhp"]
 atlas = ExtResource("1_yf2re")
@@ -103,6 +120,23 @@ region = Rect2(1050, 0, 150, 150)
 
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_death_3")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a7lhp")
